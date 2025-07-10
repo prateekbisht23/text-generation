@@ -63,20 +63,13 @@ def calculate_perplexity(model, tokenizer, text):
 if __name__ == "__main__":
     preprocess_and_save()
     model, tokenizer, generator = load_model()
-
-    print("\n🔮 GPT-2 Text Generator")
-    print("Type your prompt and press Enter to generate text.")
-    print("Type 'exit' to stop.\n")
-
-    while True:
-        user_prompt = input("📝 Enter prompt: ")
-        if user_prompt.lower() == 'exit':
-            print("👋 Exiting program.")
-            break
-
-        output = generator(user_prompt, max_length=50, num_return_sequences=1)[0]['generated_text']
-        print(f"\n🧠 Generated Text:\n{output}\n")
-
-        choice = input("🔍 Do you want to evaluate perplexity of this prompt? (y/n): ")
-        if choice.lower() == 'y':
-            calculate_perplexity(model, tokenizer, user_prompt)
+    
+    prompts = [
+        "Once upon a time",
+        "In the distant future, humanity",
+        "She opened the door and saw",
+    ]
+    generate_text(generator, prompts)
+    
+    test_text = "She was not aware of his presence. He observed her quietly."
+    calculate_perplexity(model, tokenizer, test_text)
